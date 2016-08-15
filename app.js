@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(methodOverride('_method'));
-app.use(flash());
+// app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.locals.moment = require('moment');
