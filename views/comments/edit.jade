@@ -1,0 +1,16 @@
+extends layout
+block content
+    .jumbotron
+        .container
+            .row
+                h1(style="text-align: center")  Edit Comment
+                div(style="width: 30%; margin: 25px auto;")
+                    form(action="/blogposts/#{blogpost_id}/comments/#{comment._id}?_method=PUT" method="POST")
+                        .form-group
+                            textarea.form-control( type="textarea"
+                                                    name="text"
+                                                    placeholder="text")
+                                | #{comment.text}
+                        .form-group
+                            button(class="btn btn-lg btn-success btn-block")    Update!
+                    a(href="/blogposts")  Go Back

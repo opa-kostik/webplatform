@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    .jumbotron
+        .container
+            .row
+                h1(style="text-align: center")  Add comment
+                div(style="width: 30%; margin: 25px auto;")
+                    form(action="/blogposts/#{blogpost_id}/comments" method="POST")
+                        .form-group
+                            textarea.form-control(type="textarea" name="text" placeholder="type your comment")
+                        .form-group
+                            button(class="btn btn-lg btn-success btn-block")    Submit!
+                    a(href="/blogposts")  Go Back

@@ -1,0 +1,30 @@
+.navbar-wrapper
+    .container
+        nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+            .container
+                .navbar-header
+                    a.navbar-brand(href="/")  Logo
+                    button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+                        span.sr-only  Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+
+                    if currentUser
+                        a.navbar-brand.dropdown-toggle(href="#" data-toggle="dropdown")  Welcome #{currentUser.username}
+                            b.caret
+                        ul.dropdown-menu#user-menu
+                            li
+                                include navbar-dropdown-user.jade
+                    else
+                        a.navbar-brand.dropdown-toggle(href="#" data-toggle="dropdown") Login
+                            b.caret
+                        ul.dropdown-menu#login-menu
+                            li
+                                include navbar-dropdown-login.jade
+                .collapse.navbar-collapse
+                    ul.nav.navbar-nav.pull-right
+                        li: a(href="/blogposts") Blog
+                        li: a(href="/services") Services
+                        li: a(href="/contacts") Contacts
+                        li: a(href="/about") About

@@ -1,0 +1,37 @@
+extends layout
+
+block link
+    script(src='https://cdn.tinymce.com/4/tinymce.min.js')
+    script(src='/javascripts/html-embed-editor.js')
+
+block content
+    .jumbotron
+        .container
+            .row
+                h1(style="text-align: center")  Edit post:  #{service.name}
+                div(style="width: 90%;margin: 25px auto;")
+                    form(action="/services/#{service._id}?_method=PUT" method="POST")
+                        .form-group
+                            input.form-control(type="text"
+                            name="title"
+                            value="#{service.name}"
+                            placeholder="title")
+                        .form-group
+                            input.form-control(type="text"
+                            name="description"
+                            value="#{service.description}"
+                            placeholder="short description")
+                        .form-group
+                            input.form-control(type="text"
+                            name="image"
+                            value="#{service.description}"
+                            placeholder="image url")
+                        .form-group
+                            textarea.form-control#myEdit(name="content")
+                        .form-group
+                            button.btn.btn-lg.btn-success.btn-block Save
+                    a(href="/services") Go Back
+
+    script.
+        setTimeout(function(){ tinyMCE.get('myEdit').setContent('!{service.content}') }, 200);
+

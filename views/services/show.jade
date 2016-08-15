@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    .jumbotron
+        .container
+            .row
+                .col-sm-3
+                    p.lead  Services
+                    .list-group
+                        li.list-group-item.active   Info 1
+                        li.list-group-item  Info 2
+                        li.list-group-item  Info 3
+                .col-sm-9
+                    .thumbnail
+                        img.img-responsive(src="#{service.image}")
+                        .caption-full
+                            h4
+                                a   #{service.name}
+                            p   #{service.description}
+                            if(currentUser && currentUser.role == "author")
+                                a.pull-right.btn.btn-warning(href="/services/#{service._id}/edit") Edit
+
+

@@ -1,0 +1,19 @@
+.container
+    .bio
+        //Three columns of text below the carousel
+        .row
+            each author in authors
+                .col-lg-4.col-sm-6
+                    if author.avatar
+                        img.img-circle(src="#{author.avatar}",
+                                    alt="Generic placeholder image",
+                                    width="140",
+                                    height="140")
+                    else
+                        img.img-circle(src="#",
+                        alt="Generic placeholder image",
+                        width="140",
+                        height="140")
+                    h2  #{author.username}
+                    p   Some info about author
+                    p: a.btn.btn-default(href="#" role="button")   View details &raquo;

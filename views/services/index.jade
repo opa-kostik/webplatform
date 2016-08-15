@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    .jumbotron
+        .container
+            h1.text-center
+                span.glyphicon.glyphicon-gift   Services
+            p.text-center
+                a.btn.btn-primary.btn-lg(href="/services/new")   Add service
+            .row.text-center
+                each service in services
+                    .col-md-4.col-sm-6
+                        .thumbnail
+                            img(src="#{service.image}")
+                            .caption
+                                h4  #{service.name}
+                            p
+                                a.btn.btn-primary(href="/services/#{service._id}")   More Info

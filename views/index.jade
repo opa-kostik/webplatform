@@ -1,0 +1,10 @@
+extends layout
+
+block link
+    link(rel="stylesheet", href="stylesheets/index.css")
+    link(rel='stylesheet', href='/stylesheets/bio.css')
+    link(rel="stylesheet", href="stylesheets/carousel.css")
+
+block content
+    include includes/carousel.jade
+    include includes/bio.jade

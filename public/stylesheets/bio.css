@@ -1,0 +1,12 @@
+/* Center align the text within the three columns below the carousel */
+.bio .col-lg-4 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.bio h2 {
+    font-weight: normal;
+}
+.bio .col-lg-4 p {
+    margin-right: 10px;
+    margin-left: 10px;
+}

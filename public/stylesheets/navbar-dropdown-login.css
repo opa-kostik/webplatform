@@ -1,0 +1,43 @@
+#login-menu{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+
+#login-menu .col-md-12{
+    margin-bottom: 10px;
+}
+
+#login-menu .bottom{
+    background-color:rgba(255,255,255,.6);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+
+#login-menu .social-buttons {
+    margin-bottom: 5px;
+}
+
+#login-menu .social-buttons a{
+    width: 49%;
+}
+
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+    margin-right: 1%;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}

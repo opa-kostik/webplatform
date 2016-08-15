@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    .jumbotron
+        .container
+            h1.text-center Blog
+            p.text-center
+                a.btn.btn-success.btn-lg(href="/blogposts/new")   Add new
+            .row.text-center
+                each blogpost in blogposts
+                    .col-md-6
+                        .thumbnail(style="background-image: url('http://www.planwallpaper.com/static/images/persona-nature-flower-flowers-spring-summer-free-hd-117310.jpg')")
+                            a(href="/blogposts/#{blogpost._id}")
+                                .caption
+                                    h3  #{blogpost.title}
+                                    p   #{blogpost.description}
+                            //a.btn.btn-primary(href="/blogposts/#{blogpost._id}")   Read post

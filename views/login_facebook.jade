@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    script.
+        window.fbAsyncInit = function() {
+            FB.init({
+            appId      : '1778781939067425',
+            xfbml      : true,
+            version    : 'v2.7'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    .jumbotron
+        .container
+            .row
+                h1(style="text-align: center")  Login
+                div(style="width: 30%;margin: 25px auto;")
+                    form(action="/login" method="post")
+                        .form-group
+                            input.form-control(type="text" name="username" placeholder="username")
+                        .form-group
+                            input.form-control(type="password" name="password" placeholder="password")
+                        .form-group
+                            button(class="btn btn-lg btn-primary btn-block")    Login
+                    a(href="back")  Go Back

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    .jumbotron
+        .container
+            .row
+                h1(style="text-align: center")  Login
+                div(style="width: 30%;margin: 25px auto;")
+                    form(action="/login" method="post")
+                        .form-group
+                            input.form-control(type="text" name="username" placeholder="username")
+                        .form-group
+                            input.form-control(type="password" name="password" placeholder="password")
+                        .form-group
+                            button(class="btn btn-lg btn-primary btn-block")    Login
+                    a(href="back")  Go Back

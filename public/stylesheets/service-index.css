@@ -1,0 +1,17 @@
+.jumbotron {
+  margin-top: 25px;
+}
+
+.thumbnail img {
+  width: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.thumbnail {
+  padding: 0;
+}
+
+.thumbnail .caption-full {
+  padding: 9px;
+}
