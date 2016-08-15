@@ -19,11 +19,12 @@ router.get("/", function(req, res){
 //CREATE - add new entry to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
     // get data from form and add to array
-    var title = req.body.title;
-    var desc = req.body.description;
+    var title   = req.body.title;
+    var desc    = req.body.description;
     var date    = Date.now();
+    var image   = req.body.image;
     var level   = 1;
-    var author = {
+    var author  = {
         id: req.user._id,
         username: req.user.username
     };
@@ -32,6 +33,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
         title: title,
         date: date,
         level: level,
+        image: image,
         description: desc,
         author:author,
         content: content};
@@ -93,9 +95,10 @@ router.put("/:id", function(req, res){
     var newContent = req.body.content.replace(/(\r\n|\n|\r)/gm,"");
 
     var newData = {
-        title: req.body.title,
+        title:       req.body.title,
         description: req.body.description,
-        content: newContent
+        image:       req.body.image,
+        content:     newContent
     };
 
     Blogpost.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, foundEntry){

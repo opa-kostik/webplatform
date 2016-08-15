@@ -8,13 +8,13 @@ block content
     .jumbotron
         .container
             .row
-                h1(style="text-align: center")  Edit post:  #{service.name}
+                h1(style="text-align: center")  Edit service:  #{service.title}
                 div(style="width: 90%;margin: 25px auto;")
                     form(action="/services/#{service._id}?_method=PUT" method="POST")
                         .form-group
                             input.form-control(type="text"
                             name="title"
-                            value="#{service.name}"
+                            value="#{service.title}"
                             placeholder="title")
                         .form-group
                             input.form-control(type="text"

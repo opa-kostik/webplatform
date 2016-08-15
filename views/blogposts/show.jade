@@ -4,15 +4,14 @@ block content
     .jumbotron
         .container
             .row
-                .col-sm-3
-                    p.lead  Blog
-                    .list-group
-                        li.list-group-item.active   Info 1
-                        li.list-group-item  Info 2
-                        li.list-group-item  Info 3
+                //.col-sm-3
+                //    p.lead  Blog
+                //    .list-group
+                //        li.list-group-item.active   Info 1
+                //        li.list-group-item  Info 2
+                //        li.list-group-item  Info 3
                 .col-sm-9
                     .caption-full
-                        // h4.pull-right   #{blogpost.date}
                         if(currentUser && currentUser.role == "author")
                             form.pull-right(style="display: inline"
                             action="/blogposts/#{blogpost._id}?_method=DELETE"

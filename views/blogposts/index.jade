@@ -9,7 +9,7 @@ block content
             .row.text-center
                 each blogpost in blogposts
                     .col-md-6
-                        .thumbnail(style="background-image: url('http://www.planwallpaper.com/static/images/persona-nature-flower-flowers-spring-summer-free-hd-117310.jpg')")
+                        .thumbnail(style="background-image: url(#{blogpost.image})")
                             a(href="/blogposts/#{blogpost._id}")
                                 .caption
                                     h3  #{blogpost.title}

@@ -7,17 +7,18 @@ block content
                 .col-sm-3
                     p.lead  Services
                     .list-group
-                        li.list-group-item.active   Info 1
-                        li.list-group-item  Info 2
-                        li.list-group-item  Info 3
+                        li.list-group-item.active   Price
+                        li.list-group-item  Make an appointment
                 .col-sm-9
                     .thumbnail
-                        img.img-responsive(src="#{service.image}")
                         .caption-full
-                            h4
-                                a   #{service.name}
-                            p   #{service.description}
                             if(currentUser && currentUser.role == "author")
-                                a.pull-right.btn.btn-warning(href="/services/#{service._id}/edit") Edit
-
+                                form.pull-right(style="display: inline",
+                                                action="/services/#{service._id}?_method=DELETE",
+                                                method="POST")
+                                    button.btn.btn-lg.btn-danger(style="margin-right: 10px")    DELETE POST
+                                    a.btn.btn-lg.btn-warning(href="/services/#{service._id}/edit") EDIT POST
+                            h1  #{service.title}
+                        .container
+                            !{service.content}
 

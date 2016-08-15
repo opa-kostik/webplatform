@@ -78,14 +78,8 @@ router.get("/about", function(req, res){
 });
 
 //show Contact page
-router.get("/contact", function(req, res){
-    res.render("contact");
+router.get("/contacts", function(req, res){
+    res.render("contacts");
 });
-
-//show Blog page
-router.get("/blog", function(req, res){
-    res.render("blog");
-});
-
 
 module.exports = router;

@@ -22,6 +22,11 @@ block content
                                                 value="#{blogpost.description}"
                                                 placeholder="short description")
                         .form-group
+                            input.form-control(type="text"
+                            name="image"
+                            value="#{blogpost.image}"
+                            placeholder="background image for thumbnails")
+                        .form-group
                             textarea.form-control#myEdit(name="content")
                         .form-group
                             button.btn.btn-lg.btn-success.btn-block Save

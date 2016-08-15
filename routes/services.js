@@ -19,11 +19,11 @@ router.get("/", function(req, res){
 //CREATE - add new entry to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
     // get data from form and add to array
-    var name    = req.body.name;
+    var title   = req.body.title;
     var image   = req.body.image;
     var desc    = req.body.description;
-    var content = req.body.content;
-    var newService = {name: name, image: image, description: desc, content: content};
+    var content = req.body.content.replace(/(\r\n|\n|\r)/gm,"");;
+    var newService = {title: title, image: image, description: desc, content: content};
     // Create a new entry and save to DB
     Service.create(newService, function(err, newlyCreated){
         if(err){
@@ -67,11 +67,12 @@ router.get("/:id/edit", function(req, res){
 });
 
 router.put("/:id", function(req, res){
+    var newContent = req.body.content.replace(/(\r\n|\n|\r)/gm,"");
     var newData = {
-        name: req.body.name,
+        title: req.body.title,
         image: req.body.image,
         description: req.body.description,
-        content: req.body.content
+        content: newContent
     };
     Service.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, foundEntry){
         if(err){
