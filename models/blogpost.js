@@ -2,11 +2,11 @@ var mongoose = require("mongoose");
 
 var blogpostSchema = mongoose.Schema({
     title       : String,
-    description : String,
     date   : Date,
     level  : Number,
     image  : String,
-        author : {
+    description : String,
+    author : {
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"

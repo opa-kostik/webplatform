@@ -6,8 +6,8 @@ var logger          = require('morgan');
 var cookieParser    = require('cookie-parser');
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
-var seed            = require("./seed_db");
-var flash           = require('connect-flash');
+//var seed            = require("./seed_db");
+// var flash           = require('connect-flash');
 
 var mongoose    = require("mongoose");
 
@@ -58,6 +58,9 @@ app.use(function(req, res, next){
   res.locals.currentUser = req.user;
   next();
 });
+
+//seed DB with some initial entries
+// seed();
 
 //requiring routes
 var commentRoutes     = require('./routes/comments');
