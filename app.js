@@ -21,7 +21,7 @@ var Comment     = require("./models/comment");
 var User        = require("./models/user");
 var app = express();
 
-mongoose.connect("mongodb://localhost/test_base02");
+mongoose.connect(process.env.DBURL);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,9 +36,6 @@ app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
-
-//-------seed database--------
-// seed();
 
 app.locals.moment = require('moment');
 
