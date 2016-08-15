@@ -21,7 +21,8 @@ var Comment     = require("./models/comment");
 var User        = require("./models/user");
 var app = express();
 
-mongoose.connect(process.env.DBURL);
+var dbUrl = process.env.DBURL || "mongodb://localhost/test_base";
+mongoose.connect(dbUrl);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

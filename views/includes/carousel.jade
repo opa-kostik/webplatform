@@ -1,34 +1,36 @@
 #myCarousel.carousel.slide(data-ride="carousel")
     ol.carousel-indicators
         li.active(data-target="#myCarousel", data-slide-to="0")
-        li(data-target="#myCarousel", data-slide-to="1")
-        li(data-target="#myCarousel", data-slide-to="2")
+        if !currentUser
+            li(data-target="#myCarousel", data-slide-to="1")
+        if blogpost
+            li(data-target="#myCarousel", data-slide-to="2")
     .carousel-inner(role="listbox")
         .item.active
-            img.first-slide(src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
-                            alt="First slide")
+            img(src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==")
             .container
                 .carousel-caption
-                    h1  Join today
-                    p   You need to be logged in to make comments
-                    p
-                        a.btn.btn-lg.btn-primary(href="/signup" role="button")    Sign up
-                        a.btn.btn-lg.btn-primary(href="/login" role="button" style="margin-left: 10px")    Login
-        .item
-            img.second-slide(src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
-                             alt="Second slide")
-            .container
-                .carousel-caption
-                    h1  Browse our gallery
+                    h1  Browse our services
                     p   Take a look at excellent services we provide
-                    p:  a.btn.btn-lg.btn-primary(href="/services" role="button")    Browse gallery
-        .item
-            img.third-slide(src="http://www.planwallpaper.com/static/images/persona-nature-flower-flowers-spring-summer-free-hd-117310.jpg")
-            .container
-                .carousel-caption
-                    h1  #{blogpost.title}
-                    p   #{blogpost.description}
-                    p:  a.btn.btn-lg.btn-primary(href="/blogposts/#{blogpost._id}" role="button") Read more
+                    p:  a.btn.btn-lg.btn-primary(href="/services" role="button") Explore
+        if !currentUser
+            .item
+                img(src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==")
+                .container
+                    .carousel-caption
+                        h1  Join today
+                        p   You need to be logged in to make comments
+                        p
+                            a.btn.btn-lg.btn-primary(href="/signup" role="button")    Sign up
+                            a.btn.btn-lg.btn-primary(href="/login" role="button" style="margin-left: 10px")    Login
+        if blogpost
+            .item
+                img(src="http://www.planwallpaper.com/static/images/persona-nature-flower-flowers-spring-summer-free-hd-117310.jpg")
+                .container
+                    .carousel-caption
+                        h1  #{blogpost.title}
+                        p   #{blogpost.description}
+                        p:  a.btn.btn-lg.btn-primary(href="/blogposts/#{blogpost._id}" role="button") Read more
     a.left.carousel-control(href="#myCarousel" role="button" data-slide="prev")
         span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
         span.sr-only    Previous

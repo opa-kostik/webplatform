@@ -7,8 +7,7 @@ block content
                 div(style="width: 30%; margin: 25px auto;")
                     form(action="/blogposts/#{blogpost_id}/comments/#{comment._id}?_method=PUT" method="POST")
                         .form-group
-                            textarea.form-control( type="textarea"
-                                                    name="text"
+                            textarea.form-control(  name="text"
                                                     placeholder="text")
                                 | #{comment.text}
                         .form-group

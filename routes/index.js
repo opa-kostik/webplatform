@@ -36,7 +36,7 @@ router.post("/signup", function(req, res){
   var newUser = new User({
       username: req.body.username,
       role:     req.body.role,
-      avatar:   req.body.avatar
+      avatar:   "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
   });
   User.register(newUser, req.body.password, function(err, user){
     if(err){

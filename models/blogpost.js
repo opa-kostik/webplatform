@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var blogpostSchema = mongoose.Schema({
-    title       : String,
+    title  : String,
     date   : Date,
     level  : Number,
     image  : String,
