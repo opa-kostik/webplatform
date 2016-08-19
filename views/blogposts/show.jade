@@ -4,12 +4,6 @@ block content
     .jumbotron
         .container
             .row
-                //.col-sm-3
-                //    p.lead  Blog
-                //    .list-group
-                //        li.list-group-item.active   Info 1
-                //        li.list-group-item  Info 2
-                //        li.list-group-item  Info 3
                 .col-sm-9
                     .caption-full
                         if(currentUser && currentUser.role == "author")
@@ -19,18 +13,19 @@ block content
                                 button.btn.btn-lg.btn-danger(style="margin-right: 10px")    DELETE POST
                                 a.btn.btn-lg.btn-warning(href="/blogposts/#{blogpost._id}/edit") EDIT POST
                         h1  #{blogpost.title}
-                        p
+                        div
                             em   Submitted By
                                 strong  #{blogpost.author.username}
+                            .comment-count.pull-right
+                                a(href="#{blogpost._id}#disqus_thread") Comments
                     .container
                          !{blogpost.content}
 
-                    a(href="http://foo.com/bar.html#disqus_thread") Comment count
                     #disqus_thread
                     script.
                         var disqus_config = function () {
-                            this.page.url = "https://morning-sierra-34399.herokuapp.com";
-                            this.page.identifier = "post01-disqus";
+                            this.page.url = "https://" + location.host;
+                            this.page.identifier = "#{blogpost._id}";
                         };
                         (function () {
                             var d = document, s = d.createElement('script');
@@ -39,24 +34,3 @@ block content
                             (d.head || d.body).appendChild(s);
                         })();
                     script(id="dsq-count-scr" src="//webplatform-2.disqus.com/count.js")    async
-
-                    //.well
-                    //    .text-center
-                    //        a.btn.btn-success(href="/blogposts/#{blogpost._id}/comments/new") Add New Comment
-                    //    hr
-                    //    each comment in blogpost.comments
-                    //        .row
-                    //            .col-md-12
-                    //                blockquote
-                    //                    p #{comment.text}
-                    //                    footer
-                    //                        span   #{comment.author.username}
-                    //                            span    : #{moment(comment.created_on).format('DD.MM.YYYY hh:mm')}
-                    //                                if (currentUser && (comment.author.id == currentUser._id || currentUser.role == "author") )
-                    //                                    form(style="display: inline"
-                    //                                    action="/blogposts/#{blogpost._id}/comments/#{comment._id}?_method=DELETE"
-                    //                                    method="POST")
-                    //                                        button.btn.btn-xs.btn-danger(style="margin: 0px 10px")    DELETE
-                    //                                        a.btn.btn-xs.btn-warning(href="/blogposts/#{blogpost._id}/comments/#{comment._id}/edit") EDIT
-                    //
-                    //
