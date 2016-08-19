@@ -62,7 +62,7 @@ router.get("/:id", function(req, res){
         } else {
             console.log(foundEntry);
             //render show template with that entry
-            res.render("blogposts/show", {blogpost: foundEntry});
+            res.render("blogposts/show", {blogpost: foundEntry, location_host: req.headers.host});
         }
     });
 });
@@ -87,7 +87,7 @@ router.delete("/:blogpostId",function(req, res){
         } else {
             res.redirect("/blogposts/");
         }
-    })
+    });
 });
 
 router.put("/:id", function(req, res){
