@@ -22,7 +22,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     var title   = req.body.title;
     var image   = req.body.image;
     var desc    = req.body.description;
-    var content = req.body.content.replace(/(\r\n|\n|\r)/gm,"");;
+    var content = req.body.content.replace(/(\r\n|\n|\r)/gm,"");
     var newService = {title: title, image: image, description: desc, content: content};
     // Create a new entry and save to DB
     Service.create(newService, function(err, newlyCreated){

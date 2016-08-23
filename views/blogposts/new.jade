@@ -3,21 +3,71 @@ extends ../layout
 block link
     script(src='https://cdn.tinymce.com/4/tinymce.min.js')
     script(src='/javascripts/html-embed-editor.js')
+    //link(rel="stylesheet", href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css")
+    //script(src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js")
+
 
 block content
-    .row
-        h1(style="text-align: center")  Blog
-        div(style="width: 90%;margin: 25px auto;")
-            form(action="/blogposts" method="post")
-                .form-group
-                    input.form-control(type="text" name="title" placeholder="title")
-                .form-group
-                    input.form-control(type="text" name="description" placeholder="short description")
-                .form-group
-                    input.form-control(type="text" name="image" placeholder="image url")
-                .form-group
-                    textarea.form-control#myEdit(name="content")
-                .form-group
-                    button.btn.btn-lg.btn-success.btn-block Save
-            a(href="/") Go Back
+    .jumbotron
+        .container
+            .row
+                h1(style="text-align: center;")  Blog
+                div(style="width: 90%;margin: 25px auto;")
+                    form(action="/blogposts" method="post")
+                        .form-group
+                            input.form-control(type="text" name="title" placeholder="title")
+                        .form-group
+                            input.form-control(type="text" name="description" placeholder="short description")
+                        .form-group
+                            input.form-control(type="text" name="image" placeholder="image url")
+                        //.form-group
+                        //    input.form-control(type="text" name="tags" placeholder="tags")
+                        //.form-group
+                        //    label.col-xs-3.control-label    Cities
+                        //    col-xs-8
+                        //        input(type="text",
+                        //                name="cities",
+                        //                class="form-control",
+                        //                value="Hanoi",
+                        //                data-role="tagsinput"
+                        //                form="bootstrapTagsInputForm")
+                        //.form-group
+                        //    .col-xs-5.col-xs-offset-3
+                        //        input.btn.btn-default(type="submit",
+                        //                                value="Validate",
+                        //                                form="bootstrapTagsInputForm")
+                        .form-group
+                            textarea.form-control#myEdit(name="content")
+                        .form-group
+                            button.btn.btn-lg.btn-success.btn-block Save
+                    //form#bootstrapTagsInputForm.form-horizontal(action="/blogposts/new" method="POST")
+                    a(href="/") Go Back
+
+    //script.
+    //    $(document).ready(function () {
+    //        $('#bootstrapTagsInputForm')
+    //            .find('[name="cities"]')
+    //            .change(function (e) {
+    //                $('#bootstrapTagsInputForm').formValidation('revalidateField', 'cities');
+    //            })
+    //            .end()
+    //            .formValidation({
+    //                framework: 'bootstrap',
+    //                excluded: ':disabled',
+    //                icon: {
+    //                    valid: 'glyphicon glyphicon-ok',
+    //                    invalid: 'glyphicon glyphicon-remove',
+    //                    validating: 'glyphicon glyphicon-refresh'
+    //                },
+    //                fields: {
+    //                    cities: {
+    //                        validators: {
+    //                            notEmpty: {
+    //                                message: 'Please enter at least one city you like the most.'
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //            });
+    //    });
 

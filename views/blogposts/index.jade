@@ -8,10 +8,20 @@ block content
                 a.btn.btn-success.btn-lg(href="/blogposts/new")   Add new
             .row.text-center
                 each blogpost in blogposts
-                    .col-md-6
-                        .thumbnail(style="background-image: url(#{blogpost.image})")
-                            a(href="/blogposts/#{blogpost._id}")
+                    .col-sm-6.col-md-4
+                        .thumbnail
+                            a(href="/blogposts/#{blogpost._id}",
+                                style="text-decoration: none")
+                                image(src="#{blogpost.image}")
                                 .caption
-                                    h3  #{blogpost.title}
-                                    p   #{blogpost.description}
-                            //a.btn.btn-primary(href="/blogposts/#{blogpost._id}")   Read post
+                                    h4  #{blogpost.title}
+                                    .text-right
+                                        i.fa.fa-calendar(style="padding-right:5px")
+                                        span #{moment(blogpost.postedOn).format('DD.MM.YYYY')}
+                                    .text-right
+                                        i.fa.fa-comments-o(style="padding-right:5px")
+                                        span.disqus-comment-count(data-disqus-identifier="/blogposts/#{blogpost._id}")
+                                    div   #{blogpost.description}
+
+block scripts
+    script(id="dsq-count-scr" src="//webplatform-2.disqus.com/count.js", async)

@@ -32,6 +32,7 @@ block content
                             button.btn.btn-lg.btn-success.btn-block Save
                     a(href="/services") Go Back
 
+block scripts
     script.
         setTimeout(function(){ tinyMCE.get('myEdit').setContent('!{service.content}') }, 200);
 

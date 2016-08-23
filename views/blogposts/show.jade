@@ -1,5 +1,9 @@
 extends layout
 
+block link
+    //link(rel="stylesheet", href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css")
+    //script(src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js")
+
 block content
     .jumbotron
         .container
@@ -16,21 +20,25 @@ block content
                         div
                             em   Submitted By
                                 strong  #{blogpost.author.username}
-                            .comment-count.pull-right
-                                a(href="https://#{location_host}/blogposts/#{blogpost._id}#disqus_thread") Comments
+                            //if blogpost.category && blogpost.category.name
+                            //    .category   Category:
+                            //        a(href="#") #{blogpost.category.name}
+                                div
                     .container
-                         !{blogpost.content}
+                        !{blogpost.content}
 
                     #disqus_thread
-                    script.
-                        var disqus_config = function () {
-                            this.page.url = "https://#{location_host}";
-                            this.page.identifier = '/blogposts/#{blogpost._id}';
-                        };
-                        (function () {
-                            var d = document, s = d.createElement('script');
-                            s.src = '//webplatform-2.disqus.com/embed.js';
-                            s.setAttribute('data-timestamp', +new Date());
-                            (d.head || d.body).appendChild(s);
-                        })();
-                    script(id="dsq-count-scr" src="//webplatform-2.disqus.com/count.js", async)
+
+block scripts
+    script.
+        var disqus_config = function () {
+            this.page.url = "https://#{host}/blogposts/#{blogpost._id}";
+            this.page.identifier = "/blogposts/#{blogpost._id}";
+            this.page.title = "#{blogpost.title}";
+        };
+        (function () {
+            var d = document, s = d.createElement('script');
+            s.src = '//webplatform-2.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
