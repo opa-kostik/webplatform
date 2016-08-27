@@ -17,6 +17,10 @@ block content
                         .form-group
                             input.form-control(type="text" name="title" placeholder="title")
                         .form-group
+                            select.form-control(name="category")
+                                each category in categories
+                                    option(value="#{category._id}") #{category.name}
+                        .form-group
                             input.form-control(type="text" name="description" placeholder="short description")
                         .form-group
                             input.form-control(type="text" name="image" placeholder="image url")
@@ -43,31 +47,36 @@ block content
                     //form#bootstrapTagsInputForm.form-horizontal(action="/blogposts/new" method="POST")
                     a(href="/") Go Back
 
-    //script.
-    //    $(document).ready(function () {
-    //        $('#bootstrapTagsInputForm')
-    //            .find('[name="cities"]')
-    //            .change(function (e) {
-    //                $('#bootstrapTagsInputForm').formValidation('revalidateField', 'cities');
-    //            })
-    //            .end()
-    //            .formValidation({
-    //                framework: 'bootstrap',
-    //                excluded: ':disabled',
-    //                icon: {
-    //                    valid: 'glyphicon glyphicon-ok',
-    //                    invalid: 'glyphicon glyphicon-remove',
-    //                    validating: 'glyphicon glyphicon-refresh'
-    //                },
-    //                fields: {
-    //                    cities: {
-    //                        validators: {
-    //                            notEmpty: {
-    //                                message: 'Please enter at least one city you like the most.'
-    //                            }
-    //                        }
-    //                    }
-    //                }
-    //            });
-    //    });
+    script.
+        $(document).ready(function () {
+
+            //select current category
+            //$('.form-control option[value=#
+            //{blogpost.category._id}]').prop("selected", true);
+        });
+            //        $('#bootstrapTagsInputForm')
+            //            .find('[name="cities"]')
+            //            .change(function (e) {
+            //                $('#bootstrapTagsInputForm').formValidation('revalidateField', 'cities');
+            //            })
+            //            .end()
+            //            .formValidation({
+            //                framework: 'bootstrap',
+            //                excluded: ':disabled',
+            //                icon: {
+            //                    valid: 'glyphicon glyphicon-ok',
+            //                    invalid: 'glyphicon glyphicon-remove',
+            //                    validating: 'glyphicon glyphicon-refresh'
+            //                },
+            //                fields: {
+            //                    cities: {
+            //                        validators: {
+            //                            notEmpty: {
+            //                                message: 'Please enter at least one city you like the most.'
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            });
+
 

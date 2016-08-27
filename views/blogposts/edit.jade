@@ -17,6 +17,10 @@ block content
                                                 value="#{blogpost.title}"
                                                 placeholder="title")
                         .form-group
+                            select.form-control(name="category")
+                                each category in categories
+                                    option(value="#{category._id}") #{category.name}
+                        .form-group
                             input.form-control(type="text"
                                                 name="description"
                                                 value="#{blogpost.description}"
@@ -34,5 +38,8 @@ block content
 
 block scripts
     script.
+        //select current category
+        $('.form-control option[value=#{blogpost.category._id}]').prop("selected", true);
+
         setTimeout(function(){ tinyMCE.get('myEdit').setContent('!{blogpost.content}') }, 200);
 

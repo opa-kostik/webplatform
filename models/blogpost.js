@@ -19,10 +19,10 @@ var blogpostSchema = mongoose.Schema({
     //                     ref: "Tag"
     //                 }
     //             ],
-    // category    :{
-    //                 type: mongoose.Schema.Types.ObjectId,
-    //                 ref: "Category"
-    //             },
+    category    :{
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Category"
+                },
     content     : String
 
 });

@@ -1,44 +1,41 @@
 extends layout
 
 block link
-    //link(rel="stylesheet", href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css")
-    //script(src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js")
 
 block content
     .jumbotron
-        .container
-            .row
-                .col-sm-9
-                    .caption-full
-                        if(currentUser && currentUser.role == "author")
-                            form.pull-right(style="display: inline"
-                            action="/blogposts/#{blogpost._id}?_method=DELETE"
-                            method="POST")
-                                button.btn.btn-lg.btn-danger(style="margin-right: 10px")    DELETE POST
-                                a.btn.btn-lg.btn-warning(href="/blogposts/#{blogpost._id}/edit") EDIT POST
-                        h1  #{blogpost.title}
-                        div
-                            em   Submitted By
-                                strong  #{blogpost.author.username}
-                            //if blogpost.category && blogpost.category.name
-                            //    .category   Category:
-                            //        a(href="#") #{blogpost.category.name}
-                                div
-                    .container
-                        !{blogpost.content}
+        .container-fluid
+            .caption-full
+                if(currentUser && currentUser.role == "author")
+                    form.pull-right(style="display: inline"
+                    action="/blogposts/#{data.blogpost._id}?_method=DELETE"
+                    method="POST")
+                        button.btn.btn-lg.btn-danger(style="margin-right: 10px")    DELETE POST
+                        a.btn.btn-lg.btn-warning(href="/blogposts/#{data.blogpost._id}/edit") EDIT POST
+                h1  #{data.blogpost.title}
+                div
+                    span By:
+                        strong.author #{data.blogpost.author.username}
+                        if data.blogpost.category && data.blogpost.category.name
+                            span in
+                                span.category #{data.blogpost.category.name}
+                div
+                    span Date posted:
+                        strong #{moment(data.blogpost.postedOn).format('DD.MM.YYYY')}
+                .row
+                    .col-sm-9
+                        .container
+                            hr
+                            p   !{data.blogpost.content}
+                    .col-sm-3
+                        h2 Categories
+                        .list-group
+                            each category in data.counts
+                                a.list-group-item(href="/blogposts/cat/#{category._id}") #{category.name}
+                                    span.badge #{category.count}
 
-                    #disqus_thread
+                #disqus_thread
 
 block scripts
-    script.
-        var disqus_config = function () {
-            this.page.url = "https://#{host}/blogposts/#{blogpost._id}";
-            this.page.identifier = "/blogposts/#{blogpost._id}";
-            this.page.title = "#{blogpost.title}";
-        };
-        (function () {
-            var d = document, s = d.createElement('script');
-            s.src = '//webplatform-2.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
+    script(src="/javascripts/controllers/blogposts/disqus.js")
+    script(src="/javascripts/controllers/blogposts/show.js")

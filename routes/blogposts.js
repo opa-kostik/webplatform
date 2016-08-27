@@ -1,18 +1,64 @@
 var express     = require("express");
 var router      = express.Router();
 var Blogpost    = require("../models/blogpost");
-// var Tag         = require("../models/tag");
-// var Category    = require("../models/category");
+var Category    = require("../models/category");
 var middleware  = require("../middleware");
 
 //INDEX form
 router.get("/", function(req, res){
-    Blogpost.find({}, function(err, allPosts){
-        if(err){
-            console.log(err);
-        } else {
-            res.render("blogposts/index",{blogposts:allPosts,  host: req.headers.host});
+    var response = {};
+
+    Blogpost.find().exec()
+    .then(function(allPosts) {
+        response.blogposts = allPosts;
+        return Blogpost.aggregate([{ $group:  {_id: '$category', count: {$sum: 1}}}])
+            .exec();
+    })
+    .then(function(catCounts){
+        response.counts = catCounts;
+        return Category.find().exec();
+    })
+    .then(function(categories) {
+        for (var i = 0; i < response.counts.length; i++) {
+            for (var j = 0; j < categories.length; j++) {
+                if(response.counts[i]._id && response.counts[i]._id.id === categories[j]._id.id){
+                    response.counts[i].name = categories[i].name;
+                    response.counts[i].urlSlug = categories[i].urlSlug;
+                }
+            }
         }
+        res.render("blogposts/index", {data: response});
+    })
+    .catch(function(err){
+            console.log(err);
+    });
+});
+
+router.get("/cat/:catId", function(req, res){
+    var response = {};
+    Blogpost.find({category: req.params.catId}).exec()
+    .then(function(catPosts){
+        response.blogposts = catPosts;
+        return Blogpost.aggregate([{ $group:  {_id: '$category', count: {$sum: 1}}}]).exec();
+    })
+    .then(function(catCounts){
+        response.counts = catCounts;
+        return Category.find().exec();
+    })
+    .then(function(categories) {
+        for (var i = 0; i < response.counts.length; i++) {
+            for (var j = 0; j < categories.length; j++) {
+                if(response.counts[i]._id && response.counts[i]._id.id === categories[j]._id.id){
+                    response.counts[i].name = categories[i].name;
+                    response.counts[i].urlSlug = categories[i].urlSlug;
+                }
+            }
+        }
+        res.render("blogposts/index", {data: response});
+
+    })
+    .catch(function(err){
+        console.log(err);
     });
 });
 
@@ -23,19 +69,14 @@ router.post("/", middleware.isAuthor, function(req, res){
         username: req.user.username
     };
     var content = req.body.content.replace(/(\r\n|\n|\r)/gm,"");
-    // var category = "";
-    var tags =[];
-//     for(var i = 0; i < req.body.tags.length; i++){
-//         tags.push(req.body.tags[i]._id);
-//     }
+    var category = req.body.category;
     var newPost = {
         title: req.body.title,
         postedOn: Date.now(),
         image: req.body.image,
         description: req.body.description,
         author:author,
-        // category: category,
-        // tags: tags,
+        category: category,
         content: content};
     Blogpost.create(newPost, function(err, newlyCreated){
         if(err){
@@ -49,22 +90,48 @@ router.post("/", middleware.isAuthor, function(req, res){
 
 //NEW form
 router.get("/new", middleware.isAuthor, function(req, res){
-    res.render("blogposts/new");
+    Category.find({}, function(err, allCats) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("blogposts/new", {categories: allCats});
+        }
+    });
 });
 
 // SHOW form
 router.get("/:id", function(req, res){
-    Blogpost
-        .findById(req.params.id)
-        // .populate("tags")
-        // .populate("category")
-        .exec(function(err, foundEntry){
-        if(err){
-            console.log(err);
-        } else {
-            console.log(foundEntry);
-            res.render("blogposts/show", {blogpost: foundEntry, host: req.headers.host});
+
+    var response = {};
+    response.host = req.headers.host;
+
+    Blogpost.findById(req.params.id)
+            .populate("category")
+            .exec()
+    .then(function(foundPost) {
+        response.blogpost = foundPost;
+        return Blogpost.aggregate([{ $group:  {_id: '$category', count: {$sum: 1}}}])
+            .exec();
+    })
+    .then(function(catCounts) {
+        response.counts = catCounts;
+        return Category.find().exec();
+    })
+    .then(function(categories) {
+        for (var i = 0; i < response.counts.length; i++) {
+            for (var j = 0; j < categories.length; j++) {
+                if(response.counts[i]._id && response.counts[i]._id.id === categories[j]._id.id){
+                    response.counts[i].name = categories[i].name;
+                    response.counts[i].urlSlug = categories[i].urlSlug;
+                }
+            }
         }
+
+        response.categories = categories;
+        res.render("blogposts/show", {data: response});
+    })
+    .catch(function(err){
+        console.log(err);
     });
 });
 
@@ -72,13 +139,18 @@ router.get("/:id", function(req, res){
 router.get("/:id/edit",
     function(req, res){
     Blogpost.findById(req.params.id)
-        // .populate("tags")
-        // .populate("category")
+        .populate("category")
         .exec(function(err, foundEntry){
         if(err){
             console.log(err);
         } else {
-            res.render("blogposts/edit", {blogpost: foundEntry});
+            Category.find({}, function(err, allCats) {
+                if (err) {
+                    console.log("error: " + err);
+                } else {
+                    res.render("blogposts/edit", {blogpost: foundEntry, categories: allCats});
+                }
+            });
         }
     });
 });
@@ -98,20 +170,13 @@ router.delete("/:blogpostId",function(req, res){
 router.put("/:id", function(req, res){
 
     var updContent  = req.body.content.replace(/(\r\n|\n|\r)/gm,"");
-    var updCategory = "";
-    var updTags       = [];
-
-    // for(var i = 0; i < req.body.tags.length; i++){
-    //     updTags.push(req.body.tags[i]._id);
-    // }
-
+    var updCategory = req.body.category;
     var newData = {
         title       : req.body.title,
         description : req.body.description,
         image       : req.body.image,
         updatedOn   : Date.now(),
-        // category    : updCategory,
-        // tags        : updTags,
+        category    : updCategory,
         content     : updContent
     };
 
@@ -125,4 +190,3 @@ router.put("/:id", function(req, res){
 });
 
 module.exports = router;
-

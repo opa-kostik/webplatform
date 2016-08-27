@@ -54,6 +54,7 @@ router.get("/:id", function(req, res){
     });
 });
 
+//EDIT - get
 router.get("/:id/edit", function(req, res){
     //find the entry with provided ID
     Service.findById(req.params.id, function(err, foundEntry){
@@ -66,6 +67,7 @@ router.get("/:id/edit", function(req, res){
     });
 });
 
+//EDIT - commit
 router.put("/:id", function(req, res){
     var newContent = req.body.content.replace(/(\r\n|\n|\r)/gm,"");
     var newData = {
@@ -82,6 +84,18 @@ router.put("/:id", function(req, res){
         }
     });
 });
+
+//DELETE commit
+router.delete("/:serviceId",function(req, res){
+    Service.findByIdAndRemove(req.params.serviceId, function(err){
+        if(err){
+            console.log("PROBLEM during deleting of a post!");
+        } else {
+            res.redirect("/services/");
+        }
+    });
+});
+
 
 module.exports = router;
 

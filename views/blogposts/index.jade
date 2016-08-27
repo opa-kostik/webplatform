@@ -2,26 +2,34 @@ extends layout
 
 block content
     .jumbotron
-        .container
-            h1.text-center Blog
-            p.text-center
-                a.btn.btn-success.btn-lg(href="/blogposts/new")   Add new
-            .row.text-center
-                each blogpost in blogposts
-                    .col-sm-6.col-md-4
-                        .thumbnail
-                            a(href="/blogposts/#{blogpost._id}",
-                                style="text-decoration: none")
-                                image(src="#{blogpost.image}")
-                                .caption
-                                    h4  #{blogpost.title}
-                                    .text-right
-                                        i.fa.fa-calendar(style="padding-right:5px")
-                                        span #{moment(blogpost.postedOn).format('DD.MM.YYYY')}
-                                    .text-right
-                                        i.fa.fa-comments-o(style="padding-right:5px")
-                                        span.disqus-comment-count(data-disqus-identifier="/blogposts/#{blogpost._id}")
-                                    div   #{blogpost.description}
+        .container-fluid
+            .row
+                .col-sm-9
+                    h1.text-center Blog
+                        if(currentUser && currentUser.role == "author")
+                            a.btn.btn-success.btn-lg(href="/blogposts/new")   Create post
+                    .row.text-center
+                        each blogpost in data.blogposts
+                            .col-sm-6.col-md-4
+                                .thumbnail
+                                    a(href="/blogposts/#{blogpost._id}",
+                                        style="text-decoration: none")
+                                        image(src="#{blogpost.image}")
+                                        .caption
+                                            h4  #{blogpost.title}
+                                            .text-right
+                                                i.fa.fa-calendar(style="padding-right:5px")
+                                                span #{moment(blogpost.postedOn).format('DD.MM.YYYY')}
+                                            .text-right
+                                                i.fa.fa-comments-o(style="padding-right:5px")
+                                                span.disqus-comment-count(data-disqus-identifier="/blogposts/#{blogpost._id}")
+                                            div   #{blogpost.description}
+                .col-sm-3
+                    h2 Categories
+                    .list-group
+                        each category in data.counts
+                            a.list-group-item(href="/blogposts/cat/#{category._id}") #{category.name}
+                                span.badge #{category.count}
 
 block scripts
     script(id="dsq-count-scr" src="//webplatform-2.disqus.com/count.js", async)

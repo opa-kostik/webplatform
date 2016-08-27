@@ -8,7 +8,8 @@ var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
 // var seed            = require("./seed_db");
 
-var mongoose    = require("mongoose");
+var mongoose     = require("mongoose");
+mongoose.Promise = require('bluebird');
 
 var passport    = require("passport");
 var LocalStrategy = require("passport-local");
@@ -60,6 +61,7 @@ app.use(function(req, res, next){
 //requiring routes
 var serviceRoutes     = require('./routes/services');
 var blogpostRoutes    = require('./routes/blogposts');
+var categoryRoutes    = require('./routes/categories');
 var indexRoutes       = require('./routes/index');
 var userRoutes        = require('./routes/users');
 
@@ -67,6 +69,7 @@ app.use('/', indexRoutes);
 app.use('/users', userRoutes);
 app.use('/services', serviceRoutes);
 app.use('/blogposts', blogpostRoutes);
+app.use('/categories', categoryRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

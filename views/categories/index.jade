@@ -1,0 +1,56 @@
+extends layout
+
+block link
+
+block content
+    .jumbotron
+        .container
+            h1.text-center Categories
+            .row
+                table#tableCategory.table.table-editable.table-bordered.table-responsive(cellspacing="0",width="100%")
+                    thead
+                        tr
+                            th.text-center
+                                button#add
+                                    i.fa.fa-plus
+                            th.hide  ID
+                            th  Name
+                            th  URL slug
+                            th  Description
+
+                    tbody
+                        tr.hide
+                            td.text-center
+                                button.deletebtn.btn.btn-sm.btn-danger
+                                    i.fa.fa-trash
+                            td.catid.hide
+                                span
+                            td.data.catname
+                                span
+                            td.data.catslug
+                                span
+                            td.data.catdescr
+                                span
+                            td.text-center
+                                button.savebtn.btn.btn-sm.btn-success.hide(style="width:90%") Save
+                                    i.fa.fa-pencil-square-o
+
+                        each category in categories
+                            tr.tabline
+                                td.text-center
+                                    button.deletebtn.btn.btn-sm.btn-danger
+                                        i.fa.fa-trash
+                                td.catid.hide
+                                    span   #{category._id}
+                                td.data.catname
+                                    span   #{category.name}
+                                td.data.catslug
+                                    span   #{category.urlSlug}
+                                td.data.catdescr
+                                    span   #{category.description}
+                                td.text-center
+                                    button.savebtn.btn.btn-sm.btn-success.hide Save
+                                        i.fa.fa-floppy-o
+
+block scripts
+    script(src="javascripts/controllers/categories/index.js")
